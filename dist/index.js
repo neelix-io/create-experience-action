@@ -2708,6 +2708,29 @@ exports["default"] = _default;
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -2717,20 +2740,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const core_1 = __importDefault(__nccwpck_require__(186));
-const http_client_1 = __importDefault(__nccwpck_require__(255));
-const auth_1 = __importDefault(__nccwpck_require__(526));
+const core = __importStar(__nccwpck_require__(186));
+const httpm = __importStar(__nccwpck_require__(255));
+const auth = __importStar(__nccwpck_require__(526));
 // TODO: set to prod url
 const url = 'https://neelix.jp.ngrok.io/v1.0/experience';
 const DEFAULT_COMMENTARY = 'Default commentary';
 const createExperience = (apiToken, data) => __awaiter(void 0, void 0, void 0, function* () {
-    const rh = new auth_1.default.BearerCredentialHandler(apiToken);
+    const rh = new auth.BearerCredentialHandler(apiToken);
     // TODO: update user agent name
-    const http = new http_client_1.default.HttpClient('generic-action-gha', [rh]);
+    const http = new httpm.HttpClient('generic-action-gha', [rh]);
     const res = yield http.postJson(url, data);
     console.log('success response from Neelix:');
     console.log('status:', res.statusCode);
@@ -2738,9 +2758,9 @@ const createExperience = (apiToken, data) => __awaiter(void 0, void 0, void 0, f
 });
 const run = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const apiToken = core_1.default.getInput('api-token');
-        const consortiumId = core_1.default.getInput('consortium-id');
-        const commentary = core_1.default.getInput('commentary');
+        const apiToken = core.getInput('api-token');
+        const consortiumId = core.getInput('consortium-id');
+        const commentary = core.getInput('commentary');
         const data = {
             consortium_id: consortiumId,
             commentary: commentary || DEFAULT_COMMENTARY,
@@ -2758,7 +2778,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         else if (err && typeof err === 'object' && 'message' in err) {
             error = JSON.stringify(err.message);
         }
-        core_1.default.setFailed(error);
+        core.setFailed(error);
     }
 });
 run();

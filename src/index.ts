@@ -1,6 +1,6 @@
-import core from '@actions/core';
-import httpm from '@actions/http-client';
-import auth from '@actions/http-client/lib/auth';
+import * as core from '@actions/core';
+import * as httpm from '@actions/http-client';
+import * as auth from '@actions/http-client/lib/auth';
 
 // TODO: set to prod url
 const url = 'https://neelix.jp.ngrok.io/v1.0/experience';
