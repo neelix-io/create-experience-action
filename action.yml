@@ -1,0 +1,16 @@
+name: 'Create Neelix experience'
+description: 'Creates a Neelix experience from the provided inputs'
+inputs:
+  api-token:
+    description: 'Neelix API token (should be stored as secret)'
+    required: true
+  consortium-id:
+    description: 'ID of consortium experiences will belong to'
+    required: true
+  commentary:
+    description: >
+      'Sets `commentary` field of new experience.'
+      ' Default used if value not provided'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
