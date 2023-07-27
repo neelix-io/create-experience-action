@@ -2703,7 +2703,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 177:
+/***/ 144:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -2724,11 +2724,13 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __importDefault(__nccwpck_require__(186));
 const http_client_1 = __importDefault(__nccwpck_require__(255));
 const auth_1 = __importDefault(__nccwpck_require__(526));
+// TODO: set to prod url
 const url = 'https://neelix.jp.ngrok.io/v1.0/experience';
 const DEFAULT_COMMENTARY = 'Default commentary';
 const createExperience = (apiToken, data) => __awaiter(void 0, void 0, void 0, function* () {
     const rh = new auth_1.default.BearerCredentialHandler(apiToken);
-    const http = new http_client_1.default.HttpClient('gha-generic-action', [rh]);
+    // TODO: update user agent name
+    const http = new http_client_1.default.HttpClient('generic-action-gha', [rh]);
     const res = yield http.postJson(url, data);
     console.log('success response from Neelix:');
     console.log('status:', res.statusCode);
@@ -2894,7 +2896,7 @@ module.exports = require("util");
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __nccwpck_require__(177);
+/******/ 	var __webpack_exports__ = __nccwpck_require__(144);
 /******/ 	module.exports = __webpack_exports__;
 /******/ 	
 /******/ })()

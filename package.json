@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "ncc build index.ts -o dist --license licenses.txt"
+    "build": "ncc build src/index.ts -o dist --license licenses.txt"
   },
   "repository": {
     "type": "git",
