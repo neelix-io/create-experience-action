@@ -6,6 +6,7 @@ import * as auth from '@actions/http-client/lib/auth';
 const url = 'https://neelix.jp.ngrok.io/v1.0/experience';
 
 const DEFAULT_COMMENTARY = 'Default commentary';
+const DEFAULT_WEIGHT = 0;
 
 
 type ExperienceData = {
@@ -31,10 +32,12 @@ const run = async () => {
     const apiToken = core.getInput('api-token');
     const consortiumId = core.getInput('consortium-id');
     const commentary = core.getInput('commentary');
+    const weight = +core.getInput('weight');
 
     const data = {
       consortium_id: consortiumId,
       commentary: commentary || DEFAULT_COMMENTARY,
+      weight: weight || DEFAULT_WEIGHT,
     };
 
     await createExperience(apiToken, data);

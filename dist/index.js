@@ -2747,6 +2747,7 @@ const auth = __importStar(__nccwpck_require__(526));
 // TODO: set to prod url
 const url = 'https://neelix.jp.ngrok.io/v1.0/experience';
 const DEFAULT_COMMENTARY = 'Default commentary';
+const DEFAULT_WEIGHT = 0;
 const createExperience = (apiToken, data) => __awaiter(void 0, void 0, void 0, function* () {
     const rh = new auth.BearerCredentialHandler(apiToken);
     // TODO: update user agent name
@@ -2761,9 +2762,11 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         const apiToken = core.getInput('api-token');
         const consortiumId = core.getInput('consortium-id');
         const commentary = core.getInput('commentary');
+        const weight = +core.getInput('weight');
         const data = {
             consortium_id: consortiumId,
             commentary: commentary || DEFAULT_COMMENTARY,
+            weight: weight || DEFAULT_WEIGHT,
         };
         yield createExperience(apiToken, data);
     }
