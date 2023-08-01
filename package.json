@@ -1,0 +1,29 @@
+{
+  "name": "generic-action",
+  "version": "0.1.0",
+  "description": "This action allows the user to create a Neelix experience from the provided inputs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "ncc build src/index.ts -o dist --license licenses.txt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neelix-io/generic-action.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neelix-io/generic-action/issues"
+  },
+  "homepage": "https://github.com/neelix-io/generic-action#readme",
+  "devDependencies": {
+    "@vercel/ncc": "^0.36.1",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@actions/http-client": "^2.1.0"
+  }
+}
