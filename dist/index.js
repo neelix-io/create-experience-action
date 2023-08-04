@@ -2762,24 +2762,26 @@ const createExperience = (http, data) => __awaiter(void 0, void 0, void 0, funct
     console.log('body:', res.result);
 });
 const addCategories = (http, experienceId, categoryIds) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('addCategories called');
+    console.log(`addCategories called called with experienceId ${experienceId} and categoryIds ${categoryIds}`);
     if (!(categoryIds === null || categoryIds === void 0 ? void 0 : categoryIds.length)) {
         return;
     }
     const url = `${API_URL}/experience/${experienceId}/categories`;
     const data = categoryIds.split(',');
+    console.log(`sending request to ${url}`);
     const res = yield http.putJson(url, data);
     if (res.statusCode >= 400) {
         throw new Error(`status: ${res.statusCode}; body: ${JSON.stringify(res.result)}`);
     }
 });
 const addTeams = (http, experienceId, teamIds) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('addTeams called');
+    console.log(`addTeams called called with experienceId ${experienceId} and teamIds ${teamIds}`);
     if (!(teamIds === null || teamIds === void 0 ? void 0 : teamIds.length)) {
         return;
     }
     const url = `${API_URL}/experience/${experienceId}/teams`;
     const data = teamIds.split(',');
+    console.log(`sending request to ${url}`);
     const res = yield http.putJson(url, data);
     if (res.statusCode >= 400) {
         throw new Error(`status: ${res.statusCode}; body: ${JSON.stringify(res.result)}`);
@@ -2804,7 +2806,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
             activity_id: activityId || null,
         };
         const result = yield createExperience(http, data);
-        console.log(`response body: ${result}`);
+        console.log(`response body: ${JSON.stringify(result, null, 2)}`);
         console.log(`response body type: ${typeof result}`);
         if (result === null || result === void 0 ? void 0 : result.id) {
             console.log('has ID');

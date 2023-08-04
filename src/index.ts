@@ -39,12 +39,13 @@ const addCategories = async (
   experienceId: string,
   categoryIds: string,
 ) => {
-  console.log('addCategories called');
+  console.log(`addCategories called called with experienceId ${experienceId} and categoryIds ${categoryIds}`);
   if (!categoryIds?.length) {
     return;
   }
   const url = `${API_URL}/experience/${experienceId}/categories`;
   const data = categoryIds.split(',');
+  console.log(`sending request to ${url}`)
   const res = await http.putJson(url, data);
   if (res.statusCode >= 400) {
     throw new Error(`status: ${res.statusCode}; body: ${JSON.stringify(res.result)}`);
@@ -56,12 +57,13 @@ const addTeams = async (
   experienceId: string,
   teamIds: string,
 ) => {
-  console.log('addTeams called');
+  console.log(`addTeams called called with experienceId ${experienceId} and teamIds ${teamIds}`);
   if (!teamIds?.length) {
     return;
   }
   const url = `${API_URL}/experience/${experienceId}/teams`;
   const data = teamIds.split(',');
+  console.log(`sending request to ${url}`)
   const res = await http.putJson(url, data);
   if (res.statusCode >= 400) {
     throw new Error(`status: ${res.statusCode}; body: ${JSON.stringify(res.result)}`);
@@ -91,7 +93,7 @@ const run = async () => {
     };
 
     const result = await createExperience(http, data);
-    console.log(`response body: ${result}`);
+    console.log(`response body: ${JSON.stringify(result, null, 2)}`);
     console.log(`response body type: ${typeof result}`);
     if (result?.id) {
       console.log('has ID');
