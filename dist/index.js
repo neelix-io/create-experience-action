@@ -2794,8 +2794,8 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         const commentary = core.getInput('commentary');
         const weight = +core.getInput('weight');
         const activityId = +core.getInput('activity-id');
-        const categoryIds = core.getInput('categoryIds');
-        const teamIds = core.getInput('teamIds');
+        const categoryIds = core.getInput('category-ids');
+        const teamIds = core.getInput('team-ids');
         const rh = new auth.BearerCredentialHandler(apiToken);
         // TODO: update user agent name
         const http = new httpm.HttpClient('generic-action-gha', [rh]);
