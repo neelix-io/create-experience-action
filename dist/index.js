@@ -2757,31 +2757,29 @@ const createExperience = (http, data) => __awaiter(void 0, void 0, void 0, funct
     if (res.statusCode >= 400) {
         throw new Error(`status: ${res.statusCode}; body: ${JSON.stringify(res.result)}`);
     }
-    console.log('** UNRECOGNIZED RESULT **');
-    console.log('status:', res.statusCode);
-    console.log('body:', res.result);
+    core.warning('** UNRECOGNIZED RESULT **');
+    core.warning(`status: ${res.statusCode}`);
+    core.warning(`body: ${res.result}`);
 });
 const addCategories = (http, experienceId, categoryIds) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(`addCategories called called with experienceId ${experienceId} and categoryIds ${categoryIds}`);
     if (!(categoryIds === null || categoryIds === void 0 ? void 0 : categoryIds.length)) {
         return;
     }
     const url = `${API_URL}/experience/${experienceId}/categories`;
     const data = categoryIds.split(',');
-    console.log(`sending request to ${url}`);
+    core.info(`sending PUT request to ${url} with data ${data}`);
     const res = yield http.putJson(url, data);
     if (res.statusCode >= 400) {
         throw new Error(`status: ${res.statusCode}; body: ${JSON.stringify(res.result)}`);
     }
 });
 const addTeams = (http, experienceId, teamIds) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(`addTeams called called with experienceId ${experienceId} and teamIds ${teamIds}`);
     if (!(teamIds === null || teamIds === void 0 ? void 0 : teamIds.length)) {
         return;
     }
     const url = `${API_URL}/experience/${experienceId}/teams`;
     const data = teamIds.split(',');
-    console.log(`sending request to ${url}`);
+    core.info(`sending PUT request to ${url} with data ${data}`);
     const res = yield http.putJson(url, data);
     if (res.statusCode >= 400) {
         throw new Error(`status: ${res.statusCode}; body: ${JSON.stringify(res.result)}`);
@@ -2796,6 +2794,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         const activityId = +core.getInput('activity-id');
         const categoryIds = core.getInput('category-ids');
         const teamIds = core.getInput('team-ids');
+        const externalRef = core.getInput('external-ref');
         const rh = new auth.BearerCredentialHandler(apiToken);
         // TODO: update user agent name
         const http = new httpm.HttpClient('generic-action-gha', [rh]);
@@ -2804,12 +2803,11 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
             commentary: commentary || DEFAULT_COMMENTARY,
             weight: weight || DEFAULT_WEIGHT,
             activity_id: activityId || null,
+            external_ref: externalRef || null,
         };
         const result = yield createExperience(http, data);
-        console.log(`response body: ${JSON.stringify(result, null, 2)}`);
-        console.log(`response body type: ${typeof result}`);
+        core.info(`response body: ${JSON.stringify(result, null, 2)}`);
         if (result === null || result === void 0 ? void 0 : result.id) {
-            console.log('has ID');
             yield Promise.all([
                 addCategories(http, result.id, categoryIds),
                 addTeams(http, result.id, teamIds),

@@ -29,6 +29,9 @@ inputs:
       'IDs of teams belonging to same consortium as experience. Use '
       'comma-separated list for multiple values (e.g. "1,2,3"). Adds specified '
       'teams to new experience. '
+  external-ref:
+    description:
+      'External reference url. Sets value of `external_ref` on new experience.'
 runs:
   using: 'node16'
   main: 'dist/index.js'

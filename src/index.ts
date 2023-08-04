@@ -2,6 +2,7 @@ import * as core from '@actions/core';
 import * as httpm from '@actions/http-client';
 import * as auth from '@actions/http-client/lib/auth';
 
+
 // TODO: set to prod url
 const API_URL = 'https://neelix.jp.ngrok.io/v1.2';
 
@@ -29,9 +30,9 @@ const createExperience = async (
     throw new Error(`status: ${res.statusCode}; body: ${JSON.stringify(res.result)}`);
   }
 
-  console.log('** UNRECOGNIZED RESULT **');
-  console.log('status:', res.statusCode);
-  console.log('body:', res.result);
+  core.warning('** UNRECOGNIZED RESULT **');
+  core.warning(`status: ${res.statusCode}`);
+  core.warning(`body: ${res.result}`);
 }
 
 const addCategories = async (
@@ -39,13 +40,12 @@ const addCategories = async (
   experienceId: string,
   categoryIds: string,
 ) => {
-  console.log(`addCategories called called with experienceId ${experienceId} and categoryIds ${categoryIds}`);
   if (!categoryIds?.length) {
     return;
   }
   const url = `${API_URL}/experience/${experienceId}/categories`;
   const data = categoryIds.split(',');
-  console.log(`sending request to ${url}`)
+  core.info(`sending PUT request to ${url} with data ${data}`);
   const res = await http.putJson(url, data);
   if (res.statusCode >= 400) {
     throw new Error(`status: ${res.statusCode}; body: ${JSON.stringify(res.result)}`);
@@ -57,13 +57,12 @@ const addTeams = async (
   experienceId: string,
   teamIds: string,
 ) => {
-  console.log(`addTeams called called with experienceId ${experienceId} and teamIds ${teamIds}`);
   if (!teamIds?.length) {
     return;
   }
   const url = `${API_URL}/experience/${experienceId}/teams`;
   const data = teamIds.split(',');
-  console.log(`sending request to ${url}`)
+  core.info(`sending PUT request to ${url} with data ${data}`);
   const res = await http.putJson(url, data);
   if (res.statusCode >= 400) {
     throw new Error(`status: ${res.statusCode}; body: ${JSON.stringify(res.result)}`);
@@ -79,6 +78,7 @@ const run = async () => {
     const activityId = +core.getInput('activity-id');
     const categoryIds = core.getInput('category-ids');
     const teamIds = core.getInput('team-ids');
+    const externalRef = core.getInput('external-ref');
 
     const rh = new auth.BearerCredentialHandler(apiToken);
 
@@ -90,13 +90,12 @@ const run = async () => {
       commentary: commentary || DEFAULT_COMMENTARY,
       weight: weight || DEFAULT_WEIGHT,
       activity_id: activityId || null,
+      external_ref: externalRef || null,
     };
 
     const result = await createExperience(http, data);
-    console.log(`response body: ${JSON.stringify(result, null, 2)}`);
-    console.log(`response body type: ${typeof result}`);
+    core.info(`response body: ${JSON.stringify(result, null, 2)}`);
     if (result?.id) {
-      console.log('has ID');
       await Promise.all([
         addCategories(http, result.id, categoryIds),
         addTeams(http, result.id, teamIds),
