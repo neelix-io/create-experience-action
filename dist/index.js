@@ -2762,6 +2762,7 @@ const createExperience = (http, data) => __awaiter(void 0, void 0, void 0, funct
     console.log('body:', res.result);
 });
 const addCategories = (http, experienceId, categoryIds) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('addCategories called');
     if (!(categoryIds === null || categoryIds === void 0 ? void 0 : categoryIds.length)) {
         return;
     }
@@ -2773,6 +2774,7 @@ const addCategories = (http, experienceId, categoryIds) => __awaiter(void 0, voi
     }
 });
 const addTeams = (http, experienceId, teamIds) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('addTeams called');
     if (!(teamIds === null || teamIds === void 0 ? void 0 : teamIds.length)) {
         return;
     }
@@ -2802,7 +2804,10 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
             activity_id: activityId || null,
         };
         const result = yield createExperience(http, data);
+        console.log(`response body: ${result}`);
+        console.log(`response body type: ${typeof result}`);
         if (result === null || result === void 0 ? void 0 : result.id) {
+            console.log('has ID');
             yield Promise.all([
                 addCategories(http, result.id, categoryIds),
                 addTeams(http, result.id, teamIds),

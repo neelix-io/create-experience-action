@@ -39,6 +39,7 @@ const addCategories = async (
   experienceId: string,
   categoryIds: string,
 ) => {
+  console.log('addCategories called');
   if (!categoryIds?.length) {
     return;
   }
@@ -55,6 +56,7 @@ const addTeams = async (
   experienceId: string,
   teamIds: string,
 ) => {
+  console.log('addTeams called');
   if (!teamIds?.length) {
     return;
   }
@@ -89,7 +91,10 @@ const run = async () => {
     };
 
     const result = await createExperience(http, data);
+    console.log(`response body: ${result}`);
+    console.log(`response body type: ${typeof result}`);
     if (result?.id) {
+      console.log('has ID');
       await Promise.all([
         addCategories(http, result.id, categoryIds),
         addTeams(http, result.id, teamIds),
