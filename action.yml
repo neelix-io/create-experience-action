@@ -9,12 +9,26 @@ inputs:
     required: true
   commentary:
     description: >
-      'Sets `commentary` field of new experience.'
-      ' Default used if value not provided.'
+      'Sets `commentary` field of new experience. Default used if value not '
+      'provided.'
   weight:
     description: >
-      'Sets `weight` field of new experience.'
-      ' Default used if value not provided.'
+      'Sets `weight` field of new experience. Default used if value not '
+      'provided.'
+  activity-id:
+    description: >
+      'ID of an activity belonging to same consortium as experience.'
+      'Sets `activity_id` field of new experience. '
+  category-ids:
+    description: >
+      'IDs of categoris belonging to same consortium as experience. Use '
+      'comma-separated list for multiple values (e.g. "1,2,3"). Adds '
+      'specified categories to new experience. '
+  team-ids:
+    description: >
+      'IDs of teams belonging to same consortium as experience. Use '
+      'comma-separated list for multiple values (e.g. "1,2,3"). Adds specified '
+      'teams to new experience. '
 runs:
   using: 'node16'
   main: 'dist/index.js'
