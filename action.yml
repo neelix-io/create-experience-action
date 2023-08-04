@@ -10,7 +10,11 @@ inputs:
   commentary:
     description: >
       'Sets `commentary` field of new experience.'
-      ' Default used if value not provided'
+      ' Default used if value not provided.'
+  weight:
+    description: >
+      'Sets `weight` field of new experience.'
+      ' Default used if value not provided.'
 runs:
   using: 'node16'
   main: 'dist/index.js'
