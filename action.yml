@@ -8,13 +8,12 @@ inputs:
     description: 'ID of consortium experiences will belong to'
     required: true
   commentary:
-    description: >
-      'Sets `commentary` field of new experience. Default used if value not '
-      'provided.'
+    description: 'Sets `commentary` field of new experience.'
   weight:
     description: >
       'Sets `weight` field of new experience. Default used if value not '
       'provided.'
+    default: '0'
   activity-id:
     description: >
       'ID of an activity belonging to same consortium as experience.'
@@ -30,7 +29,7 @@ inputs:
       'comma-separated list for multiple values (e.g. "1,2,3"). Adds specified '
       'teams to new experience. '
   external-ref:
-    description:
+    description: >
       'External reference url. Sets value of `external_ref` on new experience.'
 runs:
   using: 'node16'
