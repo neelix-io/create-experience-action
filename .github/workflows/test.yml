@@ -29,5 +29,5 @@ jobs:
       - name: Get latest and compare
         run: |
           EXP_ID_1="${{ steps.create-experience.outputs.experience-id }}"
-          EXP_ID_2="$(curl 'https://api.neelix.io/v1.2/experience?consortiumId=${{ secrets.TEST_CONSORTIUM_ID }}&size=1' -H 'Authorization: ${{ secrets.TEST_API_TOKEN }}' | jq .[0].id)"
+          EXP_ID_2="$(curl 'https://api.neelix.io/v1.2/experience?consortiumId=${{ secrets.TEST_CONSORTIUM_ID }}&periodStart=1&periodEnd=9999999999999&size=1' -H 'Authorization: ${{ secrets.TEST_API_TOKEN }}' | jq .rows[0].id)"
           [[ "$EXP_ID_1" == "$EXP_ID_2" ]] || exit 1
