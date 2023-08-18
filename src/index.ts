@@ -87,6 +87,8 @@ const run = async () => {
       addCategories(result.id, categoryIds),
       addTeams(result.id, teamIds),
     ]);
+
+    core.setOutput('experience-id', result.id);
   } catch (err) {
     let error: string | Error = 'Unknown error';
     if (typeof err === 'string') {

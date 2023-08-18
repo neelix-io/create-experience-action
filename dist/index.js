@@ -2809,6 +2809,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
             addCategories(result.id, categoryIds),
             addTeams(result.id, teamIds),
         ]);
+        core.setOutput('experience-id', result.id);
     }
     catch (err) {
         let error = 'Unknown error';

@@ -31,6 +31,9 @@ inputs:
   external-ref:
     description: >
       'External reference url. Sets value of `external_ref` on new experience.'
+outputs:
+  experience-id:
+    description: 'ID of new experience'
 runs:
   using: 'node16'
   main: 'dist/index.js'
