@@ -25,7 +25,6 @@ jobs:
           category-ids: ${{ secrets.TEST_CATEGORY_IDS }}
           team-ids: ${{ secrets.TEST_TEAM_IDS }}
           external-ref: "https://github.com/${{ github.repository }}/pull/${{ github.event.number }}"
-          nx-env: 'test'
       - name: Get latest and compare
         run: |
           EXP_ID_1="${{ steps.create-experience.outputs.experience-id }}"
