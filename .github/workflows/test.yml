@@ -1,0 +1,32 @@
+name: Test Create Neelix Experience
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  test-create-experience:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        uses: actions/checkout@v3
+      - id: create-experience
+        name: Create experience
+        uses: ./
+        with:
+          api-token: ${{ secrets.TEST_API_TOKEN }}
+          consortium-id: ${{ secrets.TEST_CONSORTIUM_ID }}
+          commentary: |
+            'Tested "Create Neelix Experience" GitHub action.'
+            'Event name: "${{ github.event_name }}"'
+            'Ref: "${{ github.ref }}"'
+            'Actor: "${{ github.actor }}"'
+            'Triggering actor: "${{ github.triggering_actor }}"'
+          weight: '1'
+          activity-id: ${{ secrets.TEST_ACTIVITY_ID }}
+          category-ids: ${{ secrets.TEST_CATEGORY_IDS }}
+          team-ids: ${{ secrets.TEST_TEAM_IDS }}
+          external-ref: "https://github.com/${{ github.repository }}/pull/${{ github.event.number }}"
+      - name: Get latest and compare
+        run: |
+          EXP_ID_1="${{ steps.create-experience.outputs.experience-id }}"
+          EXP_ID_2=$(curl 'https://api.neelix.io/v1.2/experience?consortiumId=${{ secrets.TEST_CONSORTIUM_ID }}&periodStart=1&periodEnd=9999999999999&size=1' -H 'Authorization: ${{ secrets.TEST_API_TOKEN }}' | jq .rows[0].id | tr -d '"')
+          [[ "$EXP_ID_1" == "$EXP_ID_2" ]] || exit 1
