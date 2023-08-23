@@ -12,5 +12,5 @@ The following versions are currently being supported with security updates.
 
 Security reports are welcome and appreciated. If you discover a potential
 security issue, we'd like to hear from you right away. Please do not open a
-public issue. Instead, please contact us right privately at services@neelix.io.
+public issue. Instead, please contact us privately at services@neelix.io.
 We'll be sure to respond as quickly as we can.
