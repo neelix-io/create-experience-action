@@ -1,5 +1,9 @@
 name: 'Create Neelix experience'
 description: 'Creates a Neelix experience from the provided inputs'
+author: Neelix.IO
+branding:
+  icon: message-square
+  color: white
 inputs:
   api-token:
     description: 'Neelix API token (should be stored as secret)'
